@@ -11,6 +11,7 @@ I am currently using a 2016 Lenovo Ideapad 110 with 3.73 GB of RAM, an Intel Cel
 
 ## Installation
 To compile and install the tool, run: ```make install```
+
 Other commands:
 * To remove intermediate files: ```make clean```
 * To unistall: ```make uninstall```
@@ -22,7 +23,7 @@ Other commands:
 #### Compiling and Uploading
 1. Ensure your board is connected.
 2. Identify the serial port using: ```arduino-cli board list```
-3. Run Compino: ``compino -s <serial_port> -b <board_name>```
+3. Run Compino: ```compino -s serial_port -b board_name```
 
 _Example:_ ```compino -s /dev/ttyUSB0 -b uno```
 
