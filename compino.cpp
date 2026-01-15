@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 
       if(arg == "-h") {
         //Depois mudar isso para um system(cat ~/etc/bin/helpguide.txt)
-        std::cout << "This is the compino help guide, a command to facilitate compilation for Arduino family boards on weak/old computers. This command is designed to work on Linux distributions." << '\n';
+        std::cout << "This is the compino help guide, a command-line tool designed to simplify compiling and uploading to Arduino board family on older or low-spec computers." << '\n';
         std::cout << "-h                        - Help guide" << '\n';
         std::cout << "-v                        - Version" << '\n';
         std::cout << "-s <serial port>          - Indicates which serial port the code should be compiled for (serial port where the Arduino is connected). To see the available ports, use: arduino-cli board list" << '\n';

@@ -39,5 +39,5 @@ You don't need to type the full FQBN (Fully Qualified Board Name). Compino recog
 - **Visual Feedback:** Colorized output messages to distinguish between success, warnings and errors.
 - **Simplified Error Messages:** More direct error messages with more refined error handling.
 - **New Commands:** Additional commands while maintaining the project's simplicity.
-- **Auto-detection:** Automatically detct the serial port if only one device is connected.
+- **Auto-detection:** Automatically detect the serial port if only one device is connected.
 - **Project Config:** Support for local config file to save default board settings per folder.
