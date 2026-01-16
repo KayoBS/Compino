@@ -10,9 +10,16 @@ I am currently using a 2016 Lenovo Ideapad 110 with 3.73 GB of RAM, an Intel Cel
 * Any Linux distribution.
 
 ## Installation
-To compile and install the tool, run: ```make install```
 
-Other commands:
+```bash
+git clone https://github.com/kayobs/compino
+cd compino/
+make install
+make clean
+```
+
+ Installation commands:
+* To compile and install the tool: ```make install```
 * To remove intermediate files: ```make clean```
 * To unistall: ```make uninstall```
 
@@ -25,7 +32,12 @@ Other commands:
 2. Identify the serial port using: ```arduino-cli board list```
 3. Run Compino: ```compino -s serial_port -b board_name```
 
-_Example:_ ```compino -s /dev/ttyUSB0 -b uno```
+> Examples
+
+```bash
+compino -s /dev/ttyACM0 -b uno
+compino -b mega -s /dev/ttyUSB0
+```
 
 #### Simplified Board Naming
 You don't need to type the full FQBN (Fully Qualified Board Name). Compino recognizes short aliases:
