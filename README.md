@@ -1,5 +1,5 @@
 # COMPINO
-This is a small command-line tool designed to simplify compiling and uploading to Arduino board family, specificaly for older or low-spec computers. Currently, it meets all my needs by providing the essential basics.
+This is a small command-line tool designed to simplify compiling and uploading to Arduino board family, specificaly for older or low-spec computers. Compino works by running the arduino-cli in the background, but simplifying its lengthy commands. Currently, it meets all my needs by providing the essential basics.
 
 ## My Setup
 I am currently using a 2016 Lenovo Ideapad 110 with 3.73 GB of RAM, an Intel Celeron N3060 processor (2.48 GHz), integrated graphics, and running Arch Linux with i3WM.
@@ -26,10 +26,11 @@ make clean
 ## How to Use
 * Display the help guide and examples: ```compino -h```
 * Check version: ```compino -v```
+* List available serial boards and ports: ```compino -l```
 
 #### Compiling and Uploading
 1. Ensure your board is connected.
-2. Identify the serial port using: ```arduino-cli board list```
+2. Identify the serial port using: ```compino -l```
 3. Run Compino: ```compino -s serial_port -b board_name```
 
 > Examples

@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
         std::cout << "This is the compino help guide, a command-line tool designed to simplify compiling and uploading to Arduino board family on older or low-spec computers." << '\n';
         std::cout << "-h                        - Help guide" << '\n';
         std::cout << "-v                        - Version" << '\n';
+        std::cout << "-l                        - List connected boards and available serial ports" << '\n';
         std::cout << "-s <serial port>          - Indicates which serial port the code should be compiled for (serial port where the Arduino is connected). To see the available ports, use: arduino-cli board list" << '\n';
         std::cout << "-b <board name>           - Indicates which Arduino family model to compile for" << '\n';
 
@@ -47,7 +48,11 @@ int main(int argc, char *argv[]) {
       }
 
       else if(arg == "-v") {
-        std::cout << "2026.01.12" << '\n';
+        std::cout << "2026.01.17" << '\n';
+      }
+
+      else if(arg == "-l") {
+        system("arduino-cli board list");
       }
 
       else if(arg == "-b") {
