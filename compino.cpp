@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
       }
 
       else if(arg == "-v") {
-        std::cout << "2026.01.17" << '\n';
+        std::cout << "1.3.3  -  2026.02.04" << '\n';
       }
 
       else if(arg == "-l") {
