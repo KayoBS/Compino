@@ -1,7 +1,5 @@
 #include <iostream>
-#include <bitset>
 #include <string>
-#include <string_view>
 #include <vector>
 
 // compile .ino | compile for arduino
@@ -15,7 +13,7 @@ int main(int argc, char *argv[]) {
   std::string board = {""};
   std::string serial_port = {""};
 
-  std::bitset<8> in_process = {0b00000000};
+  unsigned char in_process = {0b00000000};
   bool compile_try = {false};
 
   if( argc < 2 || argc >= 8 ) {
@@ -25,37 +23,30 @@ int main(int argc, char *argv[]) {
     //Depois tentar implementar um foreach ou uma recursão!
     for( size_t cont = 0 ; cont < command_args.size() ; ++cont ) {
 
-      std::string_view arg = command_args[cont];
+      std::string* arg = &command_args[cont];
 
-      if(arg == "-h") {
+      if(*arg == "-h") {
         //Depois mudar isso para um system(cat ~/etc/bin/helpguide.txt)
         std::cout << "This is the compino help guide, a command-line tool designed to simplify compiling and uploading to Arduino board family on older or low-spec computers." << '\n';
         std::cout << "-h                        - Help guide" << '\n';
         std::cout << "-v                        - Version" << '\n';
         std::cout << "-l                        - List connected boards and available serial ports" << '\n';
-        std::cout << "-s <serial port>          - Indicates which serial port the code should be compiled for (serial port where the Arduino is connected). To see the available ports, use: arduino-cli board list" << '\n';
+        std::cout << "-s <serial port>          - Indicates which serial port the code should be compiled for (serial port where the Arduino is connected)" << '\n';
         std::cout << "-b <board name>           - Indicates which Arduino family model to compile for" << '\n';
 
         std::cout << "\nExample usage format:" << '\n';
         std::cout << "compino -s /dev/ttyUSB0 -b uno" << '\n';
-
-        std::cout << "\nSupported boards for compilation:" << '\n';
-        std::cout << "Arduino Uno         -b uno" << '\n';
-        std::cout << "Arduino Mega        -b mega" << '\n';
-        std::cout << "Arduino Micro       -b micro" << '\n';
-        std::cout << "Arduino Nano        -b nano" << '\n';
-        std::cout << "Arduino Leonardo    -b leo" << '\n';
       }
 
-      else if(arg == "-v") {
-        std::cout << "1.3.3  -  2026.02.04" << '\n';
+      else if(*arg == "-v") {
+        std::cout << "1.4.0  -  2026.02.12" << '\n';
       }
 
-      else if(arg == "-l") {
+      else if(*arg == "-l") {
         system("arduino-cli board list");
       }
 
-      else if(arg == "-b") {
+      else if(*arg == "-b") {
         if( (cont+1) < command_args.size() ) {
           board = command_args[++cont];
           in_process |= 0b11110000;
@@ -66,7 +57,7 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      else if(arg == "-s") {
+      else if(*arg == "-s") {
         if( (cont+1) < command_args.size() ) {
           serial_port = command_args[++cont];
           in_process |= 0b00001111;
@@ -90,7 +81,7 @@ int main(int argc, char *argv[]) {
       compile_command = "arduino-cli compile --fqbn arduino:avr:" + board + " .";
       upload_command = "arduino-cli upload -p " + serial_port + " --fqbn arduino:avr:" + board + " .";
 
-      if( in_process.all() ) {
+      if( in_process == 0b11111111 ) {
    
         //std::cout << "Compiling sketch..." << '\n';
         system( compile_command.c_str() );
