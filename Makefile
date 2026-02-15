@@ -1,4 +1,4 @@
-SRC = compino.cpp
+SRC = compino.cpp src/print_help_guide.cpp
 
 TARGET = compino
 
@@ -8,10 +8,14 @@ CXXFLAGS = -O3 -Wall
 
 INSTALL_DIR = /usr/local/bin
 
-all: $(TARGET)
+#Temporário
+all:
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) $< -o $@
+#all: $(TARGET)
+
+#$(TARGET): $(SRC)
+#	$(CXX) $(CXXFLAGS) $< -o $@
 
 install: $(TARGET)
 	mkdir -p $(INSTALL_DIR)

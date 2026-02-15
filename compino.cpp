@@ -2,24 +2,32 @@
 #include <string>
 #include <vector>
 
+#include "src/print_help_guide.hpp"
+
+// Revisar o problema no envio de código para o Arduino Nano
+
 // compile .ino | compile for arduino
 int main(int argc, char *argv[]) {
 
   std::vector<std::string> command_args(argv + 1, argv + argc);
 
-  std::string compile_command = {""};
-  std::string upload_command = {""};
-
-  std::string board = {""};
-  std::string serial_port = {""};
-
-  unsigned char in_process = {0b00000000};
-  bool compile_try = {false};
-
   if( argc < 2 || argc >= 8 ) {
     std::cout << "Invalid number of arguments! To see how this command works, type: compino -h" << '\n';
   }
   else {
+
+    std::string compile_command = {""};
+    std::string upload_command = {""};
+
+    std::string board = {""};
+    std::string serial_port = {""};
+
+    std::string board_type = {"arduino:avr:"}; //Usar isso para o arquivo de configuração padrão depois
+
+    unsigned char uc_flag = {0b00000000}; //Upload-Compile Flag
+    bool compile_try = {false};
+
+
     //Depois tentar implementar um foreach ou uma recursão!
     for( size_t cont = 0 ; cont < command_args.size() ; ++cont ) {
 
@@ -27,19 +35,11 @@ int main(int argc, char *argv[]) {
 
       if(*arg == "-h") {
         //Depois mudar isso para um system(cat ~/etc/bin/helpguide.txt)
-        std::cout << "This is the compino help guide, a command-line tool designed to simplify compiling and uploading to Arduino board family on older or low-spec computers." << '\n';
-        std::cout << "-h                        - Help guide" << '\n';
-        std::cout << "-v                        - Version" << '\n';
-        std::cout << "-l                        - List connected boards and available serial ports" << '\n';
-        std::cout << "-s <serial port>          - Indicates which serial port the code should be compiled for (serial port where the Arduino is connected)" << '\n';
-        std::cout << "-b <board name>           - Indicates which Arduino family model to compile for" << '\n';
-
-        std::cout << "\nExample usage format:" << '\n';
-        std::cout << "compino -s /dev/ttyUSB0 -b uno" << '\n';
+        print_help_guide();
       }
 
       else if(*arg == "-v") {
-        std::cout << "1.4.0  -  2026.02.12" << '\n';
+        std::cout << "1.4.1  -  2026.02.15" << '\n';
       }
 
       else if(*arg == "-l") {
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
       else if(*arg == "-b") {
         if( (cont+1) < command_args.size() ) {
           board = command_args[++cont];
-          in_process |= 0b11110000;
+          uc_flag |= 0b11110000;
           compile_try = true;
         }
         else {
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
       else if(*arg == "-s") {
         if( (cont+1) < command_args.size() ) {
           serial_port = command_args[++cont];
-          in_process |= 0b00001111;
+          uc_flag |= 0b00001111;
           compile_try = true;
         }
         else {
@@ -77,11 +77,11 @@ int main(int argc, char *argv[]) {
 
 
     if( compile_try ) {
-      in_process &= 0b11111111;
-      compile_command = "arduino-cli compile --fqbn arduino:avr:" + board + " .";
-      upload_command = "arduino-cli upload -p " + serial_port + " --fqbn arduino:avr:" + board + " .";
+      uc_flag &= 0b11111111;
+      compile_command = "arduino-cli compile --fqbn " + board_type + board + " .";
+      upload_command = "arduino-cli upload -p " + serial_port + " --fqbn " + board_type + board + " .";
 
-      if( in_process == 0b11111111 ) {
+      if( uc_flag == 0b11111111 ) {
    
         //std::cout << "Compiling sketch..." << '\n';
         system( compile_command.c_str() );
