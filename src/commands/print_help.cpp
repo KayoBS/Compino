@@ -1,6 +1,7 @@
-#include "print_help_guide.hpp"
+#include "exec.hpp"
+#include <iostream>
 
-void print_help_guide() {
+void Exec::print_help_guide() {
   std::cout << "This is the compino help guide, a command-line tool designed to simplify compiling and uploading to Arduino board family on older or low-spec computers." << '\n';
   std::cout << "-h                        - Help guide" << '\n';
   std::cout << "-v                        - Version" << '\n';

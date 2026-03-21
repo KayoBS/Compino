@@ -1,4 +1,4 @@
-SRC = compino.cpp src/print_help_guide.cpp
+SRC = main.cpp src/commands/compile.cpp src/commands/print_help.cpp src/commands/upload.cpp src/compino/compino.cpp src/commands/list.cpp
 
 TARGET = compino
 
